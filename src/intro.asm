@@ -17,11 +17,6 @@ Intro::
 	ld [hli], a
 	ld [hli], a
 
-	xor  a
-	ld   c, 39 * 4
-	ld   hl, wShadowOAM + 4
-	call MemsetSmall
-
 	ld a, h
 	ld [hOAMHigh], a
 

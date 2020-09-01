@@ -17,20 +17,13 @@ Intro::
 	ld [hli], a
 	ld [hli], a
 
+	xor  a
+	ld   c, 39 * 4
+	ld   hl, wShadowOAM + 4
+	call MemsetSmall
+
 	ld a, h
 	ld [hOAMHigh], a
-
-	ld c, NB_SPRITES - 1
-    xor a
-    ld  hl, wShadowOAM + 4
-.clearSprites
-    ld [hli], a
-    inc l ; inc hl
-    inc l ; inc hl
-    inc l ; inc hl
-    dec c
-    jr nz, .clearSprites
-
 
 	ld a, LCDCF_ON | LCDCF_OBJON
 	ld [hLCDC], a

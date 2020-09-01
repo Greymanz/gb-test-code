@@ -56,6 +56,7 @@ Reset::
 	ld a, %11011000
 	ldh [hBGP], a
 	ldh [rBGP], a
+	ld a, %11010010
 	ldh [hOBP0], a
 	ldh [rOBP0], a
 	ldh [hOBP1], a
@@ -66,17 +67,6 @@ Reset::
 	; so it's strongly tied to your own game.
 	; I don't recommend clearing large amounts of RAM, nor to init things
 	; here that can be initialized later.
-
-	; Clear OAM, so it doesn't display garbage
-	; This will get committed to hardware OAM after the end of the first
-	; frame, but the hardware doesn't display it, so that's fine.
-	ld hl, wShadowOAM
-	ld c, NB_SPRITES * 4
-	xor a
-	rst MemsetSmall
-	ld a, h ; ld a, HIGH(wShadowOAM)
-	ldh [hOAMHigh], a
-
 
 	; Reset variables necessary for the VBlank handler to function correctly
 	; But only those for now
@@ -109,6 +99,16 @@ Reset::
 	ldh [hLCDC], a
 	; And turn the LCD on!
 	ldh [rLCDC], a
+
+	; Clear OAM, so it doesn't display garbage
+	; This will get committed to hardware OAM after the end of the first
+	; frame, but the hardware doesn't display it, so that's fine.
+	ld hl, wShadowOAM
+	ld c, NB_SPRITES * 4
+	xor a
+	rst MemsetSmall
+	ld a, h ; ld a, HIGH(wShadowOAM)
+	ldh [hOAMHigh], a
 
 	; `Intro`'s bank has already been loaded earlier
 ;	rst $38

@@ -23,10 +23,16 @@ Intro::
 	ld a, LCDCF_ON | LCDCF_OBJON
 	ld [hLCDC], a
 
+.coreLoop
+	call WaitVBlank
+	ld hl, wShadowOAM
+	ld a, [hl]
+	inc a
+	ld [hli], a
+	ld [hl], a
+	jr .coreLoop
 
-.lockup
-	rst WaitVBlank
-	jr .lockup
+
 
 SECTION "1 Tile Sprite", ROM0
 	

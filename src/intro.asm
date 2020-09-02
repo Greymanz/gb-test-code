@@ -18,18 +18,21 @@ Intro::
 	ld [hli], a
 
 	ld a, h
-	ld [hOAMHigh], a
 
-	ld a, LCDCF_ON | LCDCF_OBJON
+	ld [hOAMHigh], a
+	ld a, LCDCF_ON | LCDCF_OBJON | LCDCF_BGON
 	ld [hLCDC], a
 
 .coreLoop
-	call WaitVBlank
+    call WaitVBlank
 	ld hl, wShadowOAM
 	ld a, [hl]
 	inc a
 	ld [hli], a
 	ld [hl], a
+	ld a, h
+
+	ld [hOAMHigh], a
 	jr .coreLoop
 
 
